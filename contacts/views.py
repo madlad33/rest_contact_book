@@ -32,7 +32,7 @@ class GetAllContactsView(mixins.ListModelMixin,generics.GenericAPIView):
         return self.list(request, *args, **kwargs)
 
 
-class ContactView(#mixins.RetrieveModelMixin,
+class ContactView(mixins.RetrieveModelMixin,
                     mixins.UpdateModelMixin,
                     mixins.DestroyModelMixin,
                     generics.GenericAPIView):
@@ -42,8 +42,8 @@ class ContactView(#mixins.RetrieveModelMixin,
     authentication_classes = TokenAuthentication,
     permission_classes = IsAuthenticated,
     @method_decorator(cache_page(60))
-    # def get(self, request, *args, **kwargs):
-    #     return self.retrieve(request, *args, **kwargs)
+    def get(self, request, *args, **kwargs):
+        return self.retrieve(request, *args, **kwargs)
 
     @method_decorator(cache_page(60))
     def put(self, request, *args, **kwargs):
